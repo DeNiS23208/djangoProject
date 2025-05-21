@@ -1,6 +1,16 @@
 from django.db import models
 
 
+class MyModel(models.Model):
+    name = models.CharField(max_length=300, blank=True)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Student(models.Model):
     FIRST_YEAR = 'first'
     SECOND_YEAR = 'second'
@@ -25,3 +35,7 @@ class Student(models.Model):
         verbose_name = 'студент'
         verbose_name_plural = 'студенты'
         ordering = ['last_name']
+        permissions = [
+            ('can_promote_student', 'Can_promote_student'),
+            ('can_expel_student', 'Can_expel_student'),
+        ]
